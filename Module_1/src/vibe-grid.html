@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Vibe Grid | FlipPlay</title>
+  <meta name="description" content="Temukan anime sesuai suasana hati di The Vibe Grid, FlipPlay." />
+
+  <link href="./output.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-paper font-sans text-white">
+  <header class="sticky top-0 z-20 bg-ink/90 backdrop-blur-md border-b border-white/10 text-white">
+    <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4" aria-label="Navigasi utama">
+      <a href="./index.html" class="text-xl font-extrabold tracking-tight">Flip<span class="text-play">Play</span></a>
+      <ul class="flex items-center gap-6 text-sm font-medium">
+        <li><a href="./index.html#beranda" class="text-white/80 hover:text-play transition">Beranda</a></li>
+        <li><a href="./index.html#konten" class="text-white/80 hover:text-play transition">Katalog</a></li>
+        <li><a href="./vibe-grid.html" class="text-play font-bold transition flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-play animate-pulse"></span>Vibe Grid</a></li>
+        <li><a href="./index.html#kontak" class="text-white/80 hover:text-play transition">Akses Awal</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="bg-ink px-6 py-16 text-white md:py-20">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-play">Temukan cerita berikutnya</p>
+            <h1 class="mt-2 text-3xl font-extrabold md:text-4xl">The Vibe Grid</h1>
+            <p class="mt-3 max-w-xl leading-relaxed text-white/70">Anime pilihan dari Jikan API, dikurasi sesuai suasana hatimu.</p>
+            <a href="./index.html" class="mt-5 inline-flex rounded-lg border border-white/25 px-4 py-2 text-sm font-semibold hover:border-play hover:text-play focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-play">Kembali ke Beranda</a>
+          </div>
+          <label class="w-full md:max-w-sm">
+            <span class="sr-only">Cari judul anime</span>
+            <input id="anime-search" type="search" placeholder="Cari judul anime..."
+                   class="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/50 focus:border-play focus:outline-none focus:ring-2 focus:ring-play/50" />
+          </label>
+        </div>
+
+        <div class="mt-7 flex flex-wrap gap-3" role="group" aria-label="Filter berdasarkan Aura">
+          <button type="button" class="aura-button rounded-full border border-play bg-play px-4 py-2 text-sm font-semibold text-ink transition" data-aura="all" aria-pressed="true">✨ All vibes</button>
+          <button type="button" class="aura-button rounded-full border border-white/25 px-4 py-2 text-sm font-semibold text-play transition hover:border-play" data-aura="energy" aria-pressed="false">⚡ High Energy</button>
+          <button type="button" class="aura-button rounded-full border border-white/25 px-4 py-2 text-sm font-semibold text-play transition hover:border-play" data-aura="melancholy" aria-pressed="false">🌧️ Melancholy</button>
+          <button type="button" class="aura-button rounded-full border border-white/25 px-4 py-2 text-sm font-semibold text-play transition hover:border-play" data-aura="binge" aria-pressed="false">🍿 Binge Mode</button>
+        </div>
+
+        <div class="mt-7 flex flex-wrap items-center gap-4">
+          <p id="grid-status" class="min-h-6 text-sm text-white/70" role="status" aria-live="polite">Memuat rekomendasi anime...</p>
+          <button id="retry-load" type="button" class="hidden rounded-lg bg-play px-4 py-2 text-sm font-bold text-ink hover:opacity-90">Coba lagi</button>
+        </div>
+        <div id="anime-grid" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-busy="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-ink px-6 py-8 text-center text-sm text-white">
+    <p class="font-extrabold">Flip<span class="text-play">Play</span></p>
+    <p class="mt-1 text-white/70">Nonton dan baca dalam satu aplikasi.</p>
+    <p class="mt-4 text-white/60">&copy; 2026 FlipPlay</p>
+  </footer>
+
+  <script src="./vibe-grid.js" defer></script>
+</body>
+</html>

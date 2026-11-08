@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0a0e1a;
+  --color-ink-card: #121727;
+  --color-ink-border: #232b3e;
+  --color-flip: #6366f1;
+  --color-flip-soft: #1e1b4b;
+  --color-play: #f59e0b;
+  --color-play-hover: #d97706;
+  --color-paper: #060911;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+}

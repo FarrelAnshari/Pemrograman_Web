@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlipPlay - Nonton dan baca dalam satu aplikasi</title>
+  <meta name="description" content="FlipPlay: streaming anime dan drama, plus baca manga dan light novel, semuanya di satu tempat." />
+
+  <link href="./output.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-paper font-sans text-white min-h-screen selection:bg-play selection:text-ink">
+
+  <header class="sticky top-0 z-30 bg-ink/90 backdrop-blur-md border-b border-white/10 text-white">
+    <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4" aria-label="Navigasi utama">
+      <a href="#beranda" class="text-xl font-extrabold tracking-tight">Flip<span class="text-play">Play</span></a>
+      <button
+        id="menu-toggle"
+        type="button"
+        class="rounded-lg p-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-play md:hidden"
+        aria-label="Buka menu navigasi"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <ul id="primary-navigation" class="hidden w-full flex-col gap-3 pb-2 text-sm md:flex md:w-auto md:flex-row md:items-center md:gap-6 md:pb-0 font-medium">
+        <li><a href="#beranda" class="text-white hover:text-play transition">Beranda</a></li>
+        <li><a href="#konten" class="text-white/80 hover:text-play transition">Katalog</a></li>
+        <li><a href="./vibe-grid.html" class="text-white/80 hover:text-play transition flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-play animate-pulse"></span>Vibe Grid</a></li>
+        <li><a href="#kontak" class="text-white/80 hover:text-play transition">Akses Awal</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO CINEMATIC CAROUSEL (15 Official Anime - Auto-slides every 5s) -->
+    <section id="beranda" class="relative overflow-hidden bg-ink" aria-label="Sorotan Anime Unggulan">
+      <!-- Carousel Viewport -->
+      <div id="hero-carousel" class="relative min-h-[520px] md:min-h-[560px] lg:min-h-[600px] flex items-center">
+        <!-- Background Layer with Smooth Crossfade (Vibrant on the right like Vidio.com) -->
+        <div id="carousel-bg" class="absolute inset-0 bg-cover bg-right md:bg-center transition-all duration-700 ease-out"
+             style="background-image: url('https://img.youtube.com/vi/M-JD8QqStBg/maxresdefault.jpg');">
+          <!-- Soft Gradient on the left text area, keeping character artwork on the right clear and vibrant -->
+          <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 via-40% md:via-ink/75 md:via-45% to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Slide Content Wrapper -->
+        <div class="relative z-20 mx-auto w-full max-w-6xl px-6 py-12 md:py-16">
+          <div class="max-w-2xl">
+            <!-- Meta Badges -->
+            <div id="slide-badges" class="flex flex-wrap items-center gap-2 text-xs font-semibold">
+              <span id="slide-rating" class="rounded bg-play px-2.5 py-1 text-ink font-bold">14+</span>
+              <span id="slide-audio" class="rounded bg-white/10 px-2.5 py-1 text-white/90 backdrop-blur-sm">Sub · Dub</span>
+              <span id="slide-badge" class="rounded border border-flip/40 bg-flip/20 px-2.5 py-1 text-flip font-semibold">Simulcast</span>
+              <span id="slide-score" class="rounded bg-black/50 px-2.5 py-1 text-play font-bold border border-white/10">★ 8.15</span>
+              <span id="slide-genres" class="text-white/70">Aksi · Fantasi · Shonen</span>
+            </div>
+
+            <!-- Title (Sleek and balanced, like Vidio.com) -->
+            <h1 id="slide-title" class="mt-3 text-2xl font-extrabold tracking-tight text-white md:text-3xl lg:text-4xl drop-shadow-md">
+              Black Clover: Sword of the Wizard King
+            </h1>
+
+            <!-- Synopsis -->
+            <p id="slide-synopsis" class="mt-3 line-clamp-3 text-sm md:text-base leading-relaxed text-white/80">
+              Asta yang terlahir tanpa sihir tetap bertekad membuktikan mimpinya menjadi Kaisar Sihir. Tonton klimaks pertempuran epik dan lanjut baca kisah Spade Kingdom.
+            </p>
+
+            <!-- Dual CTA Buttons (Nonton & Baca) -->
+            <div class="mt-7 flex flex-wrap items-center gap-4">
+              <a id="slide-watch-btn" href="#konten" class="inline-flex items-center gap-2 rounded-xl bg-play px-6 py-3 text-sm font-bold text-ink shadow-lg shadow-play/25 transition hover:brightness-110 active:scale-95">
+                <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span id="slide-watch-text">Tonton Episode 1</span>
+              </a>
+              <a id="slide-read-btn" href="Content/manga.html" class="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40 active:scale-95">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <span id="slide-read-text">Lanjut Manga Ch. 270</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Arrows (Left & Right) -->
+        <button id="carousel-prev" type="button" aria-label="Anime sebelumnya"
+                class="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/15 bg-black/50 p-3 text-white backdrop-blur-md transition hover:bg-black/80 hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-play">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="carousel-next" type="button" aria-label="Anime berikutnya"
+                class="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/15 bg-black/50 p-3 text-white backdrop-blur-md transition hover:bg-black/80 hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-play">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Carousel Bottom Bar (Preserved Rata Kanan-Kiri Layout) -->
+        <div class="absolute bottom-6 left-6 right-6 z-30 mx-auto max-w-6xl">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-4">
+            <!-- Left: Counter & Dynamic Progress Bar -->
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-2">
+                <span id="carousel-counter" class="font-mono text-sm font-extrabold text-play">01</span>
+                <span class="text-xs text-white/40">/ 15</span>
+              </div>
+              <div class="relative h-1.5 w-32 md:w-48 overflow-hidden rounded-full bg-white/20">
+                <div id="carousel-progress-bar" class="absolute left-0 top-0 h-full w-0 bg-play rounded-full transition-all duration-[5000ms] ease-linear"></div>
+              </div>
+              <span class="text-xs text-white/60 hidden sm:inline" id="slide-quick-name">Black Clover</span>
+            </div>
+
+            <!-- Right: 15 Interactive Dot Pills (Rata Kanan) -->
+            <div class="flex items-center justify-end">
+              <div id="carousel-dots-container" class="flex items-center gap-1.5 overflow-x-auto max-w-[280px] py-1">
+                <!-- 15 dynamic dots generated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT / KATALOG SECTION -->
+    <section id="konten" class="bg-[#0a0e1a]/50 px-6 py-16 border-t border-white/5">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-play">Jelajahi Format Hiburan</span>
+            <h2 class="mt-1 text-2xl md:text-3xl font-extrabold text-white">Empat Cara Menikmati Cerita</h2>
+            <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/70">
+              Ikuti satu judul dari layar sampai lembaran halaman. Progres tontonan dan bacaanmu tersinkronisasi di satu akun.
+            </p>
+          </div>
+          <a href="./vibe-grid.html" class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-xs font-semibold text-white transition hover:border-play hover:text-play">
+            Coba The Vibe Grid &rarr;
+          </a>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Anime -->
+          <article class="relative group rounded-2xl border border-white/10 bg-[#121727] p-6 transition duration-300 hover:-translate-y-1 hover:border-flip hover:shadow-xl hover:shadow-flip/10">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-flip/20 border border-flip/30 text-2xl text-flip" aria-hidden="true">▶</div>
+            <h3 class="text-lg font-bold text-white"><a href="Content/anime.html" class="after:absolute after:inset-0 after:rounded-2xl focus-visible:underline">Anime</a></h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/65">Simulcast episode terbaru tayang cepat dengan subtitle Indonesia resmi & 1080p.</p>
+            <span class="mt-4 inline-block text-xs font-semibold text-play group-hover:translate-x-1 transition">Buka katalog anime &rarr;</span>
+          </article>
+
+          <!-- Drama -->
+          <article class="relative group rounded-2xl border border-white/10 bg-[#121727] p-6 transition duration-300 hover:-translate-y-1 hover:border-flip hover:shadow-xl hover:shadow-flip/10">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-flip/20 border border-flip/30 text-2xl text-flip" aria-hidden="true">🎬</div>
+            <h3 class="text-lg font-bold text-white"><a href="Content/drama.html" class="after:absolute after:inset-0 after:rounded-2xl focus-visible:underline">Drama</a></h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/65">Serial drama Asia pilihan, siap maraton atau dinikmati per episode dengan audio jernih.</p>
+            <span class="mt-4 inline-block text-xs font-semibold text-play group-hover:translate-x-1 transition">Buka katalog drama &rarr;</span>
+          </article>
+
+          <!-- Manga -->
+          <article class="relative group rounded-2xl border border-white/10 bg-[#121727] p-6 transition duration-300 hover:-translate-y-1 hover:border-play hover:shadow-xl hover:shadow-play/10">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-play/20 border border-play/30 text-2xl text-play" aria-hidden="true">📖</div>
+            <h3 class="text-lg font-bold text-white"><a href="Content/manga.html" class="after:absolute after:inset-0 after:rounded-2xl focus-visible:underline">Manga</a></h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/65">Baca chapter terbaru pasca nonton dengan pembaca komik vertikal responsif ponsel.</p>
+            <span class="mt-4 inline-block text-xs font-semibold text-play group-hover:translate-x-1 transition">Buka katalog manga &rarr;</span>
+          </article>
+
+          <!-- Light Novel -->
+          <article class="relative group rounded-2xl border border-white/10 bg-[#121727] p-6 transition duration-300 hover:-translate-y-1 hover:border-play hover:shadow-xl hover:shadow-play/10">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-play/20 border border-play/30 text-2xl text-play" aria-hidden="true">📚</div>
+            <h3 class="text-lg font-bold text-white"><a href="Content/light-novel.html" class="after:absolute after:inset-0 after:rounded-2xl focus-visible:underline">Light Novel</a></h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/65">Kisah lengkap nan mendalam dengan mode baca malam yang ramah di mata.</p>
+            <span class="mt-4 inline-block text-xs font-semibold text-play group-hover:translate-x-1 transition">Buka katalog novel &rarr;</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & COMMENT / AKSES AWAL SECTION -->
+    <section id="kontak" class="px-6 py-20 border-t border-white/5 bg-paper">
+      <div class="mx-auto max-w-xl">
+        <div class="text-center">
+          <span class="text-xs font-bold uppercase tracking-wider text-play">Early Adopter & Komunitas</span>
+          <h2 class="mt-2 text-3xl font-extrabold text-white">Daftar Akun & Beri Masukan</h2>
+          <p class="mt-3 text-sm leading-relaxed text-white/70">
+            Dapatkan undangan akses beta pertama dan request judul anime atau komik yang paling kamu inginkan hadir di FlipPlay.
+          </p>
+        </div>
+
+        <form class="mt-10 rounded-2xl border border-white/10 bg-[#121727] p-6 md:p-8 shadow-2xl" action="#" method="post">
+          <div>
+            <label for="nama" class="block text-xs font-bold uppercase tracking-wider text-white/80">Nama Lengkap</label>
+            <input id="nama" name="nama" type="text" required placeholder="Contoh: Farrel Pratama"
+                   class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 p-3 text-sm text-white placeholder:text-white/40 focus:border-play focus:outline-none focus:ring-2 focus:ring-play/40" />
+          </div>
+
+          <div class="mt-5">
+            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-white/80">Email Aktif</label>
+            <input id="email" name="email" type="email" required placeholder="farrel@example.com"
+                   class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 p-3 text-sm text-white placeholder:text-white/40 focus:border-play focus:outline-none focus:ring-2 focus:ring-play/40" />
+          </div>
+
+          <div class="mt-5">
+            <label for="pesan" class="block text-xs font-bold uppercase tracking-wider text-white/80">Komentar & Judul Yang Kamu Tunggu</label>
+            <textarea id="pesan" name="pesan" rows="4" placeholder="Tuliskan saran fitur atau judul anime / manga / novel favoritmu..."
+                      class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 p-3 text-sm text-white placeholder:text-white/40 focus:border-play focus:outline-none focus:ring-2 focus:ring-play/40"></textarea>
+          </div>
+
+          <button type="submit" class="mt-6 w-full rounded-xl bg-play py-3.5 text-sm font-bold text-ink shadow-lg shadow-play/20 transition hover:brightness-110 active:scale-95">
+            Kirim Pendaftaran & Komentar
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-[#060911] px-6 py-10 text-center text-sm text-white/70">
+    <p class="text-lg font-extrabold text-white">Flip<span class="text-play">Play</span></p>
+    <p class="mt-1 text-xs text-white/60">Satu tempat untuk streaming tontonan dan bacaan favoritmu.</p>
+    <p class="mt-5 text-xs text-white/40">&copy; 2026 FlipPlay · Dibuat untuk kenyamanan penonton dan pembaca.</p>
+  </footer>
+
+  <script>
+    // Mobile navigation toggle
+    const menuToggle = document.querySelector("#menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+
+    const setMenuExpanded = (expanded) => {
+      menuToggle.setAttribute("aria-expanded", String(expanded));
+      menuToggle.setAttribute(
+        "aria-label",
+        expanded ? "Tutup menu navigasi" : "Buka menu navigasi"
+      );
+      navigation.classList.toggle("hidden", !expanded);
+    };
+
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      setMenuExpanded(!isExpanded);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        setMenuExpanded(false);
+      }
+    });
+
+    // 15 OFFICIAL ANIME DATASET FOR CINEMATIC HERO
+    const ANIME_LIST = [
+      {
+        title: "Black Clover: Sword of the Wizard King",
+        shortTitle: "Black Clover",
+        rating: "14+",
+        audio: "Sub · Dub",
+        badge: "Simulcast",
+        score: "8.15",
+        genres: "Aksi · Fantasi · Shonen",
+        synopsis: "Asta yang terlahir tanpa sihir tetap bertekad membuktikan mimpinya menjadi Kaisar Sihir. Tonton klimaks pertempuran epik dan lanjut baca kisah Spade Kingdom.",
+        watchText: "Tonton Episode 1",
+        readText: "Lanjut Manga Ch. 270",
+        source: "Adaptasi Manga",
+        episodes: "170 Episode",
+        backdrop: "https://img.youtube.com/vi/M-JD8QqStBg/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/M-JD8QqStBg/hqdefault.jpg"
+      },
+      {
+        title: "Solo Leveling: Arise",
+        shortTitle: "Solo Leveling",
+        rating: "16+",
+        audio: "Sub Indo",
+        badge: "Trending #1",
+        score: "8.35",
+        genres: "Aksi · Dungeon · Dark Fantasy",
+        synopsis: "Dari Hunter peringkat E terlemah di dunia, Sung Jinwoo menerima quest rahasia yang membuka gerbang kebangkitan Shadow Monarch terkuat.",
+        watchText: "Tonton Episode Terbaru",
+        readText: "Lanjut Manhwa Ch. 45",
+        source: "Adaptasi Manhwa",
+        episodes: "12 Episode",
+        backdrop: "https://img.youtube.com/vi/1kQwjK4rGYg/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/1kQwjK4rGYg/hqdefault.jpg"
+      },
+      {
+        title: "Sousou no Frieren (Beyond Journey's End)",
+        shortTitle: "Sousou no Frieren",
+        rating: "13+",
+        audio: "Sub Indo",
+        badge: "Top Rated #1",
+        score: "9.24",
+        genres: "Petualangan · Fantasi · Drama",
+        synopsis: "Sepuluh tahun setelah mengalahkan Raja Iblis, sang penyihir elf menempuh perjalanan baru melintasi era demi memahami arti waktu dan manusia.",
+        watchText: "Tonton Episode 28",
+        readText: "Lanjut Manga Ch. 60",
+        source: "Adaptasi Manga",
+        episodes: "28 Episode",
+        backdrop: "https://img.youtube.com/vi/ZEkwCGJ3o7M/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/ZEkwCGJ3o7M/hqdefault.jpg"
+      },
+      {
+        title: "Jujutsu Kaisen Season 2: Shibuya Incident",
+        shortTitle: "Jujutsu Kaisen",
+        rating: "17+",
+        audio: "Sub · Dub",
+        badge: "Klimaks Musim",
+        score: "8.69",
+        genres: "Supranatural · Aksi · Shonen",
+        synopsis: "Malam Halloween di Shibuya memicu perang terbuka antara para penyihir jujutsu dan kutukan tingkat khusus pasca penyegelan Gojo Satoru.",
+        watchText: "Tonton Season 2",
+        readText: "Lanjut Manga Ch. 138",
+        source: "Adaptasi Manga",
+        episodes: "23 Episode",
+        backdrop: "https://img.youtube.com/vi/PKHQuQF1S8k/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/PKHQuQF1S8k/hqdefault.jpg"
+      },
+      {
+        title: "Demon Slayer: Kimetsu no Yaiba",
+        shortTitle: "Demon Slayer",
+        rating: "17+",
+        audio: "Sub Indo",
+        badge: "Hashira Training",
+        score: "8.20",
+        genres: "Aksi · Supranatural · Sejarah",
+        synopsis: "Tanjiro bersama para Hashira menjalani pelatihan batas akhir demi mempersiapkan perang penentuan di Infinity Castle melawan Muzan Kibutsuji.",
+        watchText: "Tonton Hashira Arc",
+        readText: "Lanjut Manga Ch. 137",
+        source: "Adaptasi Manga",
+        episodes: "8 Episode",
+        backdrop: "https://img.youtube.com/vi/Tf31dGdlWxE/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/Tf31dGdlWxE/hqdefault.jpg"
+      },
+      {
+        title: "Attack on Titan: The Final Season",
+        shortTitle: "Attack on Titan",
+        rating: "17+",
+        audio: "Sub · Dub",
+        badge: "Masterpiece",
+        score: "8.79",
+        genres: "Aksi · Militer · Misteri",
+        synopsis: "Kebenaran di balik tembok terungkap. Perang akbar bangsa Eldia dan Marley memasuki babak akhir yang menentukan takdir seluruh dunia.",
+        watchText: "Tonton Babak Final",
+        readText: "Lanjut Manga Ch. 115",
+        source: "Adaptasi Manga",
+        episodes: "Final Chapters",
+        backdrop: "https://img.youtube.com/vi/SlNpRThS9t8/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/SlNpRThS9t8/hqdefault.jpg"
+      },
+      {
+        title: "Bleach: Thousand-Year Blood War",
+        shortTitle: "Bleach: TYBW",
+        rating: "17+",
+        audio: "Sub Indo",
+        badge: "Arc Terakhir",
+        score: "8.97",
+        genres: "Aksi · Shonen · Supranatural",
+        synopsis: "Soul Society berada di ambang kehancuran akibat invasi mendadak kekaisaran Quincy Wandenreich. Ichigo Kurosaki bangkit membuka kekuatan aslinya.",
+        watchText: "Tonton Season 2",
+        readText: "Lanjut Manga Ch. 543",
+        source: "Adaptasi Manga",
+        episodes: "13 Episode",
+        backdrop: "https://img.youtube.com/vi/e8YBesRKq_U/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/e8YBesRKq_U/hqdefault.jpg"
+      },
+      {
+        title: "One Piece: Egghead Island",
+        shortTitle: "One Piece",
+        rating: "13+",
+        audio: "Sub Indo",
+        badge: "Arc Baru",
+        score: "8.72",
+        genres: "Petualangan · Aksi · Fantasi",
+        synopsis: "Luffy dan Bajak Laut Topi Jerami tiba di Pulau Masa Depan Egghead, menguak rahasia Abad Kekosongan bersama ilmuwan jenius Dr. Vegapunk.",
+        watchText: "Tonton Episode 1100+",
+        readText: "Lanjut Manga Ch. 1060",
+        source: "Adaptasi Manga",
+        episodes: "1100+ Episode",
+        backdrop: "https://img.youtube.com/vi/MewJ5bEM-5U/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/MewJ5bEM-5U/hqdefault.jpg"
+      },
+      {
+        title: "Chainsaw Man",
+        shortTitle: "Chainsaw Man",
+        rating: "18+",
+        audio: "Sub · Dub",
+        badge: "Brutal Action",
+        score: "8.41",
+        genres: "Aksi · Horor · Dark Comedy",
+        synopsis: "Denji bangkit kembali dengan kekuatan Iblis Gergaji setelah menyatu dengan Pochita, membawanya ke dalam divisi khusus pemburu iblis Public Safety.",
+        watchText: "Tonton Season 1",
+        readText: "Lanjut Manga Ch. 39",
+        source: "Adaptasi Manga",
+        episodes: "12 Episode",
+        backdrop: "https://img.youtube.com/vi/jk7QSGwupPA/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/jk7QSGwupPA/hqdefault.jpg"
+      },
+      {
+        title: "Spy x Family",
+        shortTitle: "Spy x Family",
+        rating: "13+",
+        audio: "Sub · Dub",
+        badge: "Komedi Favorit",
+        score: "8.40",
+        genres: "Aksi · Komedi · Keluarga",
+        synopsis: "Twilight, seorang agen rahasia papan atas, harus membentuk keluarga fiktif bersama pembunuh bayaran dan anak telepati demi menjaga perdamaian dunia.",
+        watchText: "Tonton Season 2",
+        readText: "Lanjut Manga Ch. 38",
+        source: "Adaptasi Manga",
+        episodes: "25 Episode",
+        backdrop: "https://img.youtube.com/vi/ofXigq9aIpo/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/ofXigq9aIpo/hqdefault.jpg"
+      },
+      {
+        title: "[Oshi no Ko]",
+        shortTitle: "Oshi no Ko",
+        rating: "16+",
+        audio: "Sub Indo",
+        badge: "Populer",
+        score: "8.52",
+        genres: "Drama · Misteri · Industri Musik",
+        synopsis: "Di balik gemerlap lampu sorot panggung idol Ai Hoshino, tersembunyi misteri kelam dan rencana balas dendam yang mengarungi industri hiburan Jepang.",
+        watchText: "Tonton Season 2",
+        readText: "Lanjut Manga Ch. 41",
+        source: "Adaptasi Manga",
+        episodes: "11 Episode",
+        backdrop: "https://img.youtube.com/vi/1yXa8MAmocQ/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/1yXa8MAmocQ/hqdefault.jpg"
+      },
+      {
+        title: "Fullmetal Alchemist: Brotherhood",
+        shortTitle: "FMA Brotherhood",
+        rating: "17+",
+        audio: "Sub · Dub",
+        badge: "Legenda Anime",
+        score: "9.11",
+        genres: "Aksi · Petualangan · Alkimia",
+        synopsis: "Edward dan Alphonse Elric menempuh pencarian panjang mencari Batu Bertuah demi mengembalikan tubuh mereka setelah melanggar tabu alkimia.",
+        watchText: "Tonton Episode Lengkap",
+        readText: "Lanjut Manga Ch. 108",
+        source: "Adaptasi Manga",
+        episodes: "64 Episode",
+        backdrop: "https://img.youtube.com/vi/1ac3_YdSSy0/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/1ac3_YdSSy0/hqdefault.jpg"
+      },
+      {
+        title: "Steins;Gate",
+        shortTitle: "Steins;Gate",
+        rating: "14+",
+        audio: "Sub Indo",
+        badge: "Sci-Fi Klasik",
+        score: "9.07",
+        genres: "Sci-Fi · Time Travel · Thriller",
+        synopsis: "Rintarou Okabe tanpa sengaja menciptakan microwave yang mampu mengirim pesan ke masa lalu, menyeretnya ke dalam konspirasi SERN yang mematikan.",
+        watchText: "Tonton 24 Episode",
+        readText: "Lanjut Visual Novel",
+        source: "Visual Novel",
+        episodes: "24 Episode",
+        backdrop: "https://img.youtube.com/vi/27OZc-ku6is/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/27OZc-ku6is/hqdefault.jpg"
+      },
+      {
+        title: "Hunter x Hunter (2011)",
+        shortTitle: "Hunter x Hunter",
+        rating: "14+",
+        audio: "Sub · Dub",
+        badge: "Petualangan Epik",
+        score: "9.03",
+        genres: "Aksi · Petualangan · Nen",
+        synopsis: "Gon Freecss memulai perjalanan menjadi Hunter profesional untuk menemukan ayahnya, menempuh ujian berbahaya hingga konflik epik Chimera Ant.",
+        watchText: "Tonton Arc Terakhir",
+        readText: "Lanjut Manga Ch. 340",
+        source: "Adaptasi Manga",
+        episodes: "148 Episode",
+        backdrop: "https://img.youtube.com/vi/d6kBeJjTGnY/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/d6kBeJjTGnY/hqdefault.jpg"
+      },
+      {
+        title: "My Hero Academia: Season 7",
+        shortTitle: "My Hero Academia",
+        rating: "14+",
+        audio: "Sub · Dub",
+        badge: "Final War",
+        score: "8.15",
+        genres: "Aksi · Superhero · Shonen",
+        synopsis: "Deku dan seluruh pahlawan UA Class 1-A bersiap dalam perang habis-habisan melawan aliansi All For One dan Shigaraki demi melindungi peradaban.",
+        watchText: "Tonton Season 7",
+        readText: "Lanjut Manga Ch. 329",
+        source: "Adaptasi Manga",
+        episodes: "21 Episode",
+        backdrop: "https://img.youtube.com/vi/E5pcEwi6ynk/maxresdefault.jpg",
+        poster: "https://img.youtube.com/vi/E5pcEwi6ynk/hqdefault.jpg"
+      }
+    ];
+
+    // CAROUSEL LOGIC & CONTROLS
+    let currentSlide = 0;
+    const totalSlides = ANIME_LIST.length;
+    const SLIDE_DURATION = 5000;
+    let autoSlideTimer = null;
+
+    // DOM Elements
+    const carouselBg = document.querySelector("#carousel-bg");
+    const slideRating = document.querySelector("#slide-rating");
+    const slideAudio = document.querySelector("#slide-audio");
+    const slideBadge = document.querySelector("#slide-badge");
+    const slideScore = document.querySelector("#slide-score");
+    const slideGenres = document.querySelector("#slide-genres");
+    const slideTitle = document.querySelector("#slide-title");
+    const slideSynopsis = document.querySelector("#slide-synopsis");
+    const slideWatchText = document.querySelector("#slide-watch-text");
+    const slideReadText = document.querySelector("#slide-read-text");
+    const slideCardImg = document.querySelector("#slide-card-img");
+    const slideCardTitle = document.querySelector("#slide-card-title");
+    const slideCardSource = document.querySelector("#slide-card-source");
+    const slideCardEpisodes = document.querySelector("#slide-card-episodes");
+    const carouselCounter = document.querySelector("#carousel-counter");
+    const slideQuickName = document.querySelector("#slide-quick-name");
+    const progressBar = document.querySelector("#carousel-progress-bar");
+    const dotsContainer = document.querySelector("#carousel-dots-container");
+    const prevBtn = document.querySelector("#carousel-prev");
+    const nextBtn = document.querySelector("#carousel-next");
+    const carouselWrapper = document.querySelector("#hero-carousel");
+
+    // Generate 15 dynamic dot pills
+    if (dotsContainer) {
+      dotsContainer.innerHTML = ANIME_LIST.map((anime, idx) => `
+        <button class="carousel-dot-btn group h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'w-6 bg-play' : 'w-2 bg-white/30 hover:bg-white/60'}"
+                data-index="${idx}"
+                aria-label="Pilih ${anime.shortTitle}"
+                title="${anime.title}">
+        </button>
+      `).join("");
+    }
+
+    function renderSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      const anime = ANIME_LIST[currentSlide];
+
+      // Update background with smooth transition
+      if (carouselBg) {
+        carouselBg.style.opacity = "0.4";
+        setTimeout(() => {
+          carouselBg.style.backgroundImage = `url('${anime.backdrop}')`;
+          carouselBg.style.opacity = "1";
+        }, 150);
+      }
+
+      // Update Text Elements
+      if (slideRating) slideRating.textContent = anime.rating;
+      if (slideAudio) slideAudio.textContent = anime.audio;
+      if (slideBadge) slideBadge.textContent = anime.badge;
+      if (slideScore) slideScore.textContent = `★ ${anime.score}`;
+      if (slideGenres) slideGenres.textContent = anime.genres;
+      if (slideTitle) slideTitle.textContent = anime.title;
+      if (slideSynopsis) slideSynopsis.textContent = anime.synopsis;
+      if (slideWatchText) slideWatchText.textContent = anime.watchText;
+      if (slideReadText) slideReadText.textContent = anime.readText;
+
+      // Update Floating Card Preview
+      if (slideCardImg) {
+        slideCardImg.src = anime.poster;
+        slideCardImg.alt = `Poster ${anime.title}`;
+      }
+      if (slideCardTitle) slideCardTitle.textContent = anime.title;
+      if (slideCardSource) slideCardSource.textContent = anime.source;
+      if (slideCardEpisodes) slideCardEpisodes.textContent = anime.episodes;
+
+      // Update Counter & Quick Name
+      if (carouselCounter) {
+        carouselCounter.textContent = String(currentSlide + 1).padStart(2, '0');
+      }
+      if (slideQuickName) {
+        slideQuickName.textContent = anime.shortTitle;
+      }
+
+      // Update Dots
+      const allDots = document.querySelectorAll(".carousel-dot-btn");
+      allDots.forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.className = "carousel-dot-btn group h-2 rounded-full transition-all duration-300 w-6 bg-play";
+        } else {
+          dot.className = "carousel-dot-btn group h-2 rounded-full transition-all duration-300 w-2 bg-white/30 hover:bg-white/60";
+        }
+      });
+
+      // Restart animated progress bar
+      if (progressBar) {
+        progressBar.style.transition = "none";
+        progressBar.style.width = "0%";
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            progressBar.style.transition = `width ${SLIDE_DURATION}ms linear`;
+            progressBar.style.width = "100%";
+          });
+        });
+      }
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      autoSlideTimer = setInterval(() => {
+        renderSlide(currentSlide + 1);
+      }, SLIDE_DURATION);
+    }
+
+    function stopAutoSlide() {
+      if (autoSlideTimer) {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        renderSlide(currentSlide - 1);
+        startAutoSlide();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        renderSlide(currentSlide + 1);
+        startAutoSlide();
+      });
+    }
+
+    // Dot click listeners
+    if (dotsContainer) {
+      dotsContainer.addEventListener("click", (e) => {
+        const dot = e.target.closest(".carousel-dot-btn");
+        if (dot) {
+          const idx = parseInt(dot.getAttribute("data-index"), 10);
+          renderSlide(idx);
+          startAutoSlide();
+        }
+      });
+    }
+
+    // Pause on hover
+    if (carouselWrapper) {
+      carouselWrapper.addEventListener("mouseenter", () => {
+        stopAutoSlide();
+        if (progressBar) progressBar.style.animationPlayState = "paused";
+      });
+      carouselWrapper.addEventListener("mouseleave", () => {
+        startAutoSlide();
+        if (progressBar) progressBar.style.animationPlayState = "running";
+      });
+    }
+
+    // Initialize 1st slide and start 5s continuous rotation
+    renderSlide(0);
+    startAutoSlide();
+  </script>
+</body>
+</html>
