@@ -252,3 +252,4 @@ foreach ($user->getWatchlist() as $index => $item) {
 
 printDivider("SIMULASI DEMO MODUL 3 FLIPPLAY SELESAI DENGAN SUKSES");
 echo "Seluruh 8 ketentuan praktikum & 5 alur simulasi telah berhasil dijalankan." . PHP_EOL . PHP_EOL;
+

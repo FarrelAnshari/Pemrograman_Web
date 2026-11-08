@@ -85,3 +85,4 @@ class User
         return $this->watchlist;
     }
 }
+
