@@ -1,0 +1,325 @@
+{
+  "info": {
+    "_postman_id": "a7f2b4d0-91e4-4c6b-8a0f-1f3e5d7b9012",
+    "name": "FlipPlay REST API (Laravel 12)",
+    "description": "Koleksi pengujian Postman untuk FlipPlay REST API — lanjutan dari sistem PHP OOP Module_3.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Happy Path",
+      "item": [
+        {
+          "name": "1. List All Media",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media",
+              "host": ["{{base_url}}"],
+              "path": ["media"]
+            }
+          }
+        },
+        {
+          "name": "2. Search Media by Title (Frieren)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media?title=Frieren",
+              "host": ["{{base_url}}"],
+              "path": ["media"],
+              "query": [
+                { "key": "title", "value": "Frieren" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Filter Media by Type (anime)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media?type=anime",
+              "host": ["{{base_url}}"],
+              "path": ["media"],
+              "query": [
+                { "key": "type", "value": "anime" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4. Create New Media (Anime)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ANM-004\",\n  \"title\": \"Jujutsu Kaisen: Shibuya Incident\",\n  \"type\": \"anime\",\n  \"genre\": \"Aksi, Supranatural, Shonen\",\n  \"rating\": 8.75,\n  \"synopsis\": \"Insiden besar di Shibuya yang melibatkan penyegelan Satoru Gojo.\",\n  \"is_available\": true,\n  \"total_episodes\": 23,\n  \"studio\": \"MAPPA\",\n  \"resolution\": \"1080p Full HD\",\n  \"has_sub_indo\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/media",
+              "host": ["{{base_url}}"],
+              "path": ["media"]
+            }
+          }
+        },
+        {
+          "name": "5. Show Media Detail + Collector Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media/2",
+              "host": ["{{base_url}}"],
+              "path": ["media", "2"]
+            }
+          }
+        },
+        {
+          "name": "6. Get User Collection",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/1/collection",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection"]
+            }
+          }
+        },
+        {
+          "name": "7. Add Media to User Collection (Solo Leveling)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"media_id\": 3,\n  \"progress\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/1/collection",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection"]
+            }
+          }
+        },
+        {
+          "name": "8. Update Collection Progress",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"progress\": 12\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/1/collection/3",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection", "3"]
+            }
+          }
+        },
+        {
+          "name": "9. Remove Media from User Collection",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/1/collection/3",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection", "3"]
+            }
+          }
+        },
+        {
+          "name": "10. Update Media (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 8.95,\n  \"resolution\": \"4K Ultra HD\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/media/6",
+              "host": ["{{base_url}}"],
+              "path": ["media", "6"]
+            }
+          }
+        },
+        {
+          "name": "11. Update Media (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ANM-004\",\n  \"title\": \"Jujutsu Kaisen: Shibuya Incident (Director Cut)\",\n  \"type\": \"anime\",\n  \"genre\": \"Aksi, Supranatural, Dark Fantasy\",\n  \"rating\": 9.00,\n  \"synopsis\": \"Versi lengkap arc Shibuya dengan adegan tambahan.\",\n  \"is_available\": true,\n  \"total_episodes\": 23,\n  \"studio\": \"MAPPA\",\n  \"resolution\": \"4K Ultra HD\",\n  \"has_sub_indo\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/media/6",
+              "host": ["{{base_url}}"],
+              "path": ["media", "6"]
+            }
+          }
+        },
+        {
+          "name": "12. Delete Media",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media/6",
+              "host": ["{{base_url}}"],
+              "path": ["media", "6"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Path",
+      "item": [
+        {
+          "name": "1. Create Media with Empty Title (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ANM-999\",\n  \"title\": \"\",\n  \"type\": \"anime\",\n  \"genre\": \"Aksi\",\n  \"rating\": 8.0,\n  \"synopsis\": \"Tes validasi judul kosong.\",\n  \"total_episodes\": 12,\n  \"studio\": \"MAPPA\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/media",
+              "host": ["{{base_url}}"],
+              "path": ["media"]
+            }
+          }
+        },
+        {
+          "name": "2. Create Media with Duplicate Title (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ANM-998\",\n  \"title\": \"Solo Leveling: Arise\",\n  \"type\": \"anime\",\n  \"genre\": \"Aksi\",\n  \"rating\": 8.35,\n  \"synopsis\": \"Tes judul duplikat.\",\n  \"total_episodes\": 12,\n  \"studio\": \"A-1 Pictures\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/media",
+              "host": ["{{base_url}}"],
+              "path": ["media"]
+            }
+          }
+        },
+        {
+          "name": "3. Add Duplicate Media to User Collection (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"media_id\": 2,\n  \"progress\": 15\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/1/collection",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection"]
+            }
+          }
+        },
+        {
+          "name": "4. Delete Non-Attached Media from Collection (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/1/collection/5",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1", "collection", "5"]
+            }
+          }
+        },
+        {
+          "name": "5. Get Non-Existent Media ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/media/999",
+              "host": ["{{base_url}}"],
+              "path": ["media", "999"]
+            }
+          }
+        },
+        {
+          "name": "6. Get Non-Existent User ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/999/collection",
+              "host": ["{{base_url}}"],
+              "path": ["users", "999", "collection"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
